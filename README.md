@@ -24,8 +24,8 @@ All S4TK software is currently considered to be in its pre-release stage. Use at
 
 ### Index
 
-[class BinaryDecoder](#class-binarydecoder)
-[class BinaryEncoder](#class-binaryencoder)
+- [class BinaryDecoder](#class-binarydecoder)
+- [class BinaryEncoder](#class-binaryencoder)
 
 ### class BinaryDecoder
 
