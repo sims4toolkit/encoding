@@ -1,6 +1,7 @@
 {
   "name": "@s4tk/encoding",
   "version": "0.1.0",
+  "main": "encoding.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sims4toolkit/encoding.git"
