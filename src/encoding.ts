@@ -177,7 +177,7 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * @returns {Buffer} The sliced buffer
 	 */
 	slice(size: number): Buffer {
-		const end = this.offset + size + 1;
+		const end = this.offset + size;
 		const slice = this.buffer.slice(this.offset, end);
 		this.seek(end);
 		return slice;
