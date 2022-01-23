@@ -1,5 +1,5 @@
 /**
- * The encoder and decoder were created in August 2020, and have been used in
+ * The encoder and decoder were created in August 2021, and have been used in
  * multiple projects since then, and have been functioning exactly as expected.
  * Unit tests for these classes is more of a nice-to-have, when I have the time
  * to write them, but for now, they are not a priority.
