@@ -1,0 +1,20 @@
+{
+  "versions": [
+    "0.1.2"
+  ],
+  "groups": [
+    {
+      "group": "classes",
+      "items": [
+        "BinaryEncoder",
+        "BinaryDecoder"
+      ]
+    },
+    {
+      "group": "abstracts",
+      "items": [
+        "BinaryEncodingBase"
+      ]
+    }
+  ]
+}

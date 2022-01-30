@@ -1,0 +1,284 @@
+{
+  "imports": [
+    "import { BinaryEncoder } from \"@s4tk/encoding\"; // ESM",
+    "const { BinaryEncoder } = require(\"@s4tk/encoding\"); // CJS"
+  ],
+  "header": {
+    "title": {
+      "prefix": "class",
+      "name": "BinaryEncoder",
+      "extends": [
+        {
+          "name": "BinaryEncodingBase",
+          "path": "/docs/encoding/latest/abstracts/BinaryEncodingBase"
+        }
+      ]
+    },
+    "description": "A class for writing binary data to buffers. All data is written with little endianess.",
+    "repoUrl": "https://github.com/sims4toolkit/encoding/blob/main/src/encoding.ts"
+  },
+  "sections": [
+    {
+      "title": "Initialization",
+      "description": null,
+      "content": [
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "constructor",
+          "returnType": {
+            "name": "BinaryEncoder",
+            "path": null
+          },
+          "description": "Creates a new BinaryEncoder for a buffer.",
+          "arguments": [
+            {
+              "name": "buffer",
+              "type": {
+                "name": "Buffer",
+                "path": null
+              },
+              "description": "Buffer to create encoder for.",
+              "optional": false
+            }
+          ],
+          "exampleCode": "const encoder = new BinaryEncoder(buffer);"
+        }
+      ]
+    },
+    {
+      "title": "Methods",
+      "description": null,
+      "content": [
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "boolean",
+          "returnType": null,
+          "description": "Writes 1 for truthy input, 0 for falsey input.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "boolean",
+                "path": null
+              },
+              "description": "Boolean value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.boolean(true);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "charsBase64",
+          "returnType": null,
+          "description": "Writes the given string in Base 64.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "string",
+                "path": null
+              },
+              "description": "String value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.charsBase64(\"Hello world\");"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "charsUtf8",
+          "returnType": null,
+          "description": "Writes the given string in UTF-8.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "string",
+                "path": null
+              },
+              "description": "String value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.charsUtf8(\"Hello world\");"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "float",
+          "returnType": null,
+          "description": "Writes the given number as a 4-byte float.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "Float value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.float(1.5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "int8",
+          "returnType": null,
+          "description": "Writes the given number as an Int8.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "Int8 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.int8(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "int16",
+          "returnType": null,
+          "description": "Writes the given number as an Int16.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "Int16 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.int16(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "int32",
+          "returnType": null,
+          "description": "Writes the given number as an Int32.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "Int32 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.int32(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "int64",
+          "returnType": null,
+          "description": "Writes the given bigint as an Int64.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "bigint",
+                "path": null
+              },
+              "description": "Int64 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.int64(5n);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "uint8",
+          "returnType": null,
+          "description": "Writes the given number as a UInt8.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "UInt8 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.uint8(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "uint16",
+          "returnType": null,
+          "description": "Writes the given number as a UInt16.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "UInt16 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.uint16(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "uint32",
+          "returnType": null,
+          "description": "Writes the given number as a UInt32.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number",
+                "path": null
+              },
+              "description": "UInt32 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.uint32(5);"
+        },
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "uint64",
+          "returnType": null,
+          "description": "Writes the given bigint as a UInt64.",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "bigint",
+                "path": null
+              },
+              "description": "UInt64 value to write",
+              "optional": false
+            }
+          ],
+          "exampleCode": "encoder.uint64(5n);"
+        }
+      ]
+    }
+  ]
+}
