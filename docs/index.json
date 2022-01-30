@@ -4,14 +4,14 @@
   ],
   "groups": [
     {
-      "group": "classes",
+      "name": "classes",
       "items": [
         "BinaryEncoder",
         "BinaryDecoder"
       ]
     },
     {
-      "group": "abstracts",
+      "name": "abstracts",
       "items": [
         "BinaryEncodingBase"
       ]
