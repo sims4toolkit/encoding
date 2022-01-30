@@ -10,7 +10,11 @@
       "extends": [
         {
           "name": "BinaryEncodingBase",
-          "path": "/docs/encoding/latest/abstracts/BinaryEncodingBase"
+          "path": {
+            "pkg": "encoding",
+            "group": "abstracts",
+            "item": "BinaryEncodingBase"
+          }
         }
       ]
     },

@@ -19,7 +19,11 @@
           "name": "getDecoder",
           "returnType": {
             "name": "BinaryDecoder",
-            "path": "/docs/encoding/latest/classes/BinaryDecoder"
+            "path": {
+              "pkg": "encoding",
+              "group": "classes",
+              "item": "BinaryDecoder"
+            }
           },
           "description": "Returns a new BinaryDecoder for the buffer in this model.",
           "arguments": null,
@@ -31,7 +35,11 @@
           "name": "getEncoder",
           "returnType": {
             "name": "BinaryEncoder",
-            "path": "/docs/encoding/latest/classes/BinaryEncoder"
+            "path": {
+              "pkg": "encoding",
+              "group": "classes",
+              "item": "BinaryEncoder"
+            }
           },
           "description": "Returns a new BinaryEncoder for the buffer in this model.",
           "arguments": null,

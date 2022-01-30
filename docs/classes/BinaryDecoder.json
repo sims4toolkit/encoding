@@ -1,0 +1,54 @@
+{
+  "imports": [
+    "import { BinaryDecoder } from \"@s4tk/encoding\"; // ESM",
+    "const { BinaryDecoder } = require(\"@s4tk/encoding\"); // CJS"
+  ],
+  "header": {
+    "title": {
+      "prefix": "class",
+      "name": "BinaryDecoder",
+      "extends": [
+        {
+          "name": "BinaryEncodingBase",
+          "path": {
+            "pkg": "encoding",
+            "group": "abstracts",
+            "item": "BinaryEncodingBase"
+          }
+        }
+      ]
+    },
+    "description": "A class for reading binary data from buffers. All data is read with little endianess.",
+    "repoUrl": "https://github.com/sims4toolkit/encoding/blob/main/src/encoding.ts"
+  },
+  "sections": [
+    {
+      "title": "Initialization",
+      "description": null,
+      "content": [
+        {
+          "displayType": "function",
+          "prefix": null,
+          "name": "constructor",
+          "returnType": {
+            "name": "BinaryDecoder",
+            "path": null
+          },
+          "description": "Creates a new BinaryDecoder for a buffer.",
+          "arguments": [
+            {
+              "name": "buffer",
+              "type": {
+                "name": "Buffer",
+                "path": null
+              },
+              "description": "Buffer to create decoder for.",
+              "optional": false
+            }
+          ],
+          "exampleCode": null
+        }
+      ]
+    }
+  ]
+}
