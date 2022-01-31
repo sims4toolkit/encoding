@@ -1,5 +1,5 @@
 {
-  "imports": null,
+  "$schema": "https://raw.githubusercontent.com/sims4toolkit/misc/main/json-schemas/docs-item-schema.json",
   "header": {
     "title": {
       "prefix": "abstract class",
@@ -11,11 +11,9 @@
   "sections": [
     {
       "title": "Methods",
-      "description": null,
       "content": [
         {
           "displayType": "function",
-          "prefix": null,
           "name": "getDecoder",
           "returnType": {
             "name": "BinaryDecoder",
@@ -25,12 +23,10 @@
               "item": "BinaryDecoder"
             }
           },
-          "description": "Returns a new BinaryDecoder for the buffer in this model.",
-          "arguments": null
+          "description": "Returns a new BinaryDecoder for the buffer in this model."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "getEncoder",
           "returnType": {
             "name": "BinaryEncoder",
@@ -40,41 +36,33 @@
               "item": "BinaryEncoder"
             }
           },
-          "description": "Returns a new BinaryEncoder for the buffer in this model.",
-          "arguments": null
+          "description": "Returns a new BinaryEncoder for the buffer in this model."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "isEOF",
           "returnType": {
-            "name": "boolean",
-            "path": null
+            "name": "boolean"
           },
-          "description": "Returns true if the offset is at the end of the file, false if it's not.",
-          "arguments": null
+          "description": "Returns true if the offset is at the end of the file, false if it's not."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "savePos",
           "generics": [
             {
-              "name": "T",
-              "extends": null
+              "name": "T"
             }
           ],
           "returnType": {
-            "name": "T",
-            "path": null
+            "name": "T"
           },
           "description": "Restores the offset to where it originally was after calling the given function. If the given function returns anything, it will be returned by this function.",
           "arguments": [
             {
               "name": "fn",
               "type": {
-                "name": "() => T",
-                "path": null
+                "name": "() => T"
               },
               "description": "Function to call.",
               "optional": false
@@ -82,23 +70,19 @@
           ],
           "examples": [
             {
-              "lang": null,
               "code": "// offset = 0\nencoder.savePos(() => {\n  encoder.uint32();\n  // offset = 4\n});\n// offset = 0"
             }
           ]
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "seek",
-          "returnType": null,
           "description": "Sets the offset to a specific position.",
           "arguments": [
             {
               "name": "offset",
               "type": {
-                "name": "number | bigint",
-                "path": null
+                "name": "number | bigint"
               },
               "description": "Position to set the offset to.",
               "optional": false
@@ -107,19 +91,16 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "skip",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
           "description": "Advances the offset by the given number of bytes, and returns the new offset.",
           "arguments": [
             {
               "name": "offset",
               "type": {
-                "name": "number | bigint",
-                "path": null
+                "name": "number | bigint"
               },
               "description": "Number of bytes to skip.",
               "optional": false
@@ -128,14 +109,11 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "tell",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Returns the current offset.",
-          "arguments": null
+          "description": "Returns the current offset."
         }
       ]
     }

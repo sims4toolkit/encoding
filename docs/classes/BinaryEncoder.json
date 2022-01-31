@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/sims4toolkit/misc/main/json-schemas/docs-item-schema.json",
   "imports": [
     "import { BinaryEncoder } from \"@s4tk/encoding\"; // ESM",
     "const { BinaryEncoder } = require(\"@s4tk/encoding\"); // CJS"
@@ -24,23 +25,19 @@
   "sections": [
     {
       "title": "Initialization",
-      "description": null,
       "content": [
         {
           "displayType": "function",
-          "prefix": null,
           "name": "constructor",
           "returnType": {
-            "name": "BinaryEncoder",
-            "path": null
+            "name": "BinaryEncoder"
           },
           "description": "Creates a new BinaryEncoder for a buffer.",
           "arguments": [
             {
               "name": "buffer",
               "type": {
-                "name": "Buffer",
-                "path": null
+                "name": "Buffer"
               },
               "description": "Buffer to create encoder for.",
               "optional": false
@@ -51,20 +48,16 @@
     },
     {
       "title": "Methods",
-      "description": null,
       "content": [
         {
           "displayType": "function",
-          "prefix": null,
           "name": "boolean",
-          "returnType": null,
           "description": "Writes 1 for truthy input, 0 for falsey input.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "boolean",
-                "path": null
+                "name": "boolean"
               },
               "description": "Boolean value to write.",
               "optional": false
@@ -73,16 +66,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "charsBase64",
-          "returnType": null,
           "description": "Writes the given string in Base 64.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "string",
-                "path": null
+                "name": "string"
               },
               "description": "String value to write.",
               "optional": false
@@ -91,16 +81,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "charsUtf8",
-          "returnType": null,
           "description": "Writes the given string in UTF-8.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "string",
-                "path": null
+                "name": "string"
               },
               "description": "String value to write.",
               "optional": false
@@ -109,16 +96,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "float",
-          "returnType": null,
           "description": "Writes the given number as a 4-byte float.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Float value to write.",
               "optional": false
@@ -127,16 +111,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int8",
-          "returnType": null,
           "description": "Writes the given number as an Int8.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Int8 value to write.",
               "optional": false
@@ -145,16 +126,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int16",
-          "returnType": null,
           "description": "Writes the given number as an Int16.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Int16 value to write.",
               "optional": false
@@ -163,16 +141,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int32",
-          "returnType": null,
           "description": "Writes the given number as an Int32.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Int32 value to write.",
               "optional": false
@@ -181,16 +156,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int64",
-          "returnType": null,
           "description": "Writes the given bigint as an Int64.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "bigint",
-                "path": null
+                "name": "bigint"
               },
               "description": "Int64 value to write.",
               "optional": false
@@ -199,16 +171,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint8",
-          "returnType": null,
           "description": "Writes the given number as a UInt8.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "UInt8 value to write.",
               "optional": false
@@ -217,16 +186,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint16",
-          "returnType": null,
           "description": "Writes the given number as a UInt16.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "UInt16 value to write.",
               "optional": false
@@ -235,16 +201,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint32",
-          "returnType": null,
           "description": "Writes the given number as a UInt32.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "UInt32 value to write.",
               "optional": false
@@ -253,16 +216,13 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint64",
-          "returnType": null,
           "description": "Writes the given bigint as a UInt64.",
           "arguments": [
             {
               "name": "value",
               "type": {
-                "name": "bigint",
-                "path": null
+                "name": "bigint"
               },
               "description": "UInt64 value to write.",
               "optional": false

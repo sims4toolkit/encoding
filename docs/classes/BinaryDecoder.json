@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/sims4toolkit/misc/main/json-schemas/docs-item-schema.json",
   "imports": [
     "import { BinaryDecoder } from \"@s4tk/encoding\"; // ESM",
     "const { BinaryDecoder } = require(\"@s4tk/encoding\"); // CJS"
@@ -24,23 +25,19 @@
   "sections": [
     {
       "title": "Initialization",
-      "description": null,
       "content": [
         {
           "displayType": "function",
-          "prefix": null,
           "name": "constructor",
           "returnType": {
-            "name": "BinaryDecoder",
-            "path": null
+            "name": "BinaryDecoder"
           },
           "description": "Creates a new BinaryDecoder for a buffer.",
           "arguments": [
             {
               "name": "buffer",
               "type": {
-                "name": "Buffer",
-                "path": null
+                "name": "Buffer"
               },
               "description": "Buffer to create decoder for.",
               "optional": false
@@ -51,34 +48,27 @@
     },
     {
       "title": "Methods",
-      "description": null,
       "content": [
         {
           "displayType": "function",
-          "prefix": null,
           "name": "boolean",
           "returnType": {
-            "name": "boolean",
-            "path": null
+            "name": "boolean"
           },
-          "description": "Reads the next byte as a boolean (0 is false, anything else is true).",
-          "arguments": null
+          "description": "Reads the next byte as a boolean (0 is false, anything else is true)."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "bytes",
           "returnType": {
-            "name": "number[]",
-            "path": null
+            "name": "number[]"
           },
           "description": "Reads the next n bytes and returns them in an array of numbers.",
           "arguments": [
             {
               "name": "n",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Number of bytes to read.",
               "optional": false
@@ -87,19 +77,16 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "charsBase64",
           "returnType": {
-            "name": "string",
-            "path": null
+            "name": "string"
           },
           "description": "Reads the next n bytes as a Base 64 string.",
           "arguments": [
             {
               "name": "n",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Number of bytes to read.",
               "optional": false
@@ -108,19 +95,16 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "charsUtf8",
           "returnType": {
-            "name": "string",
-            "path": null
+            "name": "string"
           },
           "description": "Reads the next n bytes as a UTF-8 string.",
           "arguments": [
             {
               "name": "n",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Number of bytes to read.",
               "optional": false
@@ -129,74 +113,56 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "float",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next 4 bytes as a float.",
-          "arguments": null
+          "description": "Reads the next 4 bytes as a float."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int8",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next byte as an Int8.",
-          "arguments": null
+          "description": "Reads the next byte as an Int8."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int16",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next 2 bytes as an Int16.",
-          "arguments": null
+          "description": "Reads the next 2 bytes as an Int16."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int32",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next 4 bytes as an Int32.",
-          "arguments": null
+          "description": "Reads the next 4 bytes as an Int32."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "int64",
           "returnType": {
-            "name": "bigint",
-            "path": null
+            "name": "bigint"
           },
-          "description": "Reads the next 8 bytes as an Int64.",
-          "arguments": null
+          "description": "Reads the next 8 bytes as an Int64."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "slice",
           "returnType": {
-            "name": "Buffer",
-            "path": null
+            "name": "Buffer"
           },
           "description": "Reads the next n bytes as a buffer.",
           "arguments": [
             {
               "name": "size",
               "type": {
-                "name": "number",
-                "path": null
+                "name": "number"
               },
               "description": "Number of bytes to read. This will be the length of the buffer.",
               "optional": false
@@ -205,58 +171,43 @@
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "string",
           "returnType": {
-            "name": "string",
-            "path": null
+            "name": "string"
           },
-          "description": "Reads until a null byte is found, and returns the result as a UTF-8 string.",
-          "arguments": null
+          "description": "Reads until a null byte is found, and returns the result as a UTF-8 string."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint8",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next byte as a UInt8.",
-          "arguments": null
+          "description": "Reads the next byte as a UInt8."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint16",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next 2 bytes as a UInt16.",
-          "arguments": null
+          "description": "Reads the next 2 bytes as a UInt16."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint32",
           "returnType": {
-            "name": "number",
-            "path": null
+            "name": "number"
           },
-          "description": "Reads the next 4 bytes as a UInt32.",
-          "arguments": null
+          "description": "Reads the next 4 bytes as a UInt32."
         },
         {
           "displayType": "function",
-          "prefix": null,
           "name": "uint64",
           "returnType": {
-            "name": "bigint",
-            "path": null
+            "name": "bigint"
           },
-          "description": "Reads the next 8 bytes as a UInt64.",
-          "arguments": null
+          "description": "Reads the next 8 bytes as a UInt64."
         }
       ]
     }
