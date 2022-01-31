@@ -45,8 +45,7 @@
               "description": "Buffer to create decoder for.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         }
       ]
     },
@@ -63,8 +62,7 @@
             "path": null
           },
           "description": "Reads the next byte as a boolean (0 is false, anything else is true).",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -85,8 +83,7 @@
               "description": "Number of bytes to read.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -107,8 +104,7 @@
               "description": "Number of bytes to read.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -129,8 +125,7 @@
               "description": "Number of bytes to read.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -141,8 +136,7 @@
             "path": null
           },
           "description": "Reads the next 4 bytes as a float.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -153,8 +147,7 @@
             "path": null
           },
           "description": "Reads the next byte as an Int8.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -165,8 +158,7 @@
             "path": null
           },
           "description": "Reads the next 2 bytes as an Int16.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -177,8 +169,7 @@
             "path": null
           },
           "description": "Reads the next 4 bytes as an Int32.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -189,8 +180,7 @@
             "path": null
           },
           "description": "Reads the next 8 bytes as an Int64.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -211,8 +201,7 @@
               "description": "Number of bytes to read. This will be the length of the buffer.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -223,8 +212,7 @@
             "path": null
           },
           "description": "Reads until a null byte is found, and returns the result as a UTF-8 string.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -235,8 +223,7 @@
             "path": null
           },
           "description": "Reads the next byte as a UInt8.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -247,8 +234,7 @@
             "path": null
           },
           "description": "Reads the next 2 bytes as a UInt16.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -259,8 +245,7 @@
             "path": null
           },
           "description": "Reads the next 4 bytes as a UInt32.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -271,8 +256,7 @@
             "path": null
           },
           "description": "Reads the next 8 bytes as a UInt64.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         }
       ]
     }

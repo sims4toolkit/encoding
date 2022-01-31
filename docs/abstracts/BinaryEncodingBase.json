@@ -26,8 +26,7 @@
             }
           },
           "description": "Returns a new BinaryDecoder for the buffer in this model.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -42,8 +41,7 @@
             }
           },
           "description": "Returns a new BinaryEncoder for the buffer in this model.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -54,8 +52,7 @@
             "path": null
           },
           "description": "Returns true if the offset is at the end of the file, false if it's not.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         },
         {
           "displayType": "function",
@@ -83,7 +80,12 @@
               "optional": false
             }
           ],
-          "exampleCode": "// offset = 0\nencoder.savePos(() => {\n  encoder.uint32();\n  // offset = 4\n});\n// offset = 0"
+          "examples": [
+            {
+              "lang": null,
+              "code": "// offset = 0\nencoder.savePos(() => {\n  encoder.uint32();\n  // offset = 4\n});\n// offset = 0"
+            }
+          ]
         },
         {
           "displayType": "function",
@@ -101,8 +103,7 @@
               "description": "Position to set the offset to.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -123,8 +124,7 @@
               "description": "Number of bytes to skip.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -135,8 +135,7 @@
             "path": null
           },
           "description": "Returns the current offset.",
-          "arguments": null,
-          "exampleCode": null
+          "arguments": null
         }
       ]
     }

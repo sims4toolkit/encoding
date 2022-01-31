@@ -45,8 +45,7 @@
               "description": "Buffer to create encoder for.",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         }
       ]
     },
@@ -70,8 +69,7 @@
               "description": "Boolean value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -89,8 +87,7 @@
               "description": "String value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -108,8 +105,7 @@
               "description": "String value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -127,8 +123,7 @@
               "description": "Float value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -146,8 +141,7 @@
               "description": "Int8 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -165,8 +159,7 @@
               "description": "Int16 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -184,8 +177,7 @@
               "description": "Int32 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -203,8 +195,7 @@
               "description": "Int64 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -222,8 +213,7 @@
               "description": "UInt8 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -241,8 +231,7 @@
               "description": "UInt16 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -260,8 +249,7 @@
               "description": "UInt32 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         },
         {
           "displayType": "function",
@@ -279,8 +267,7 @@
               "description": "UInt64 value to write",
               "optional": false
             }
-          ],
-          "exampleCode": null
+          ]
         }
       ]
     }
