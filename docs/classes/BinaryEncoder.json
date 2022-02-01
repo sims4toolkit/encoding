@@ -20,7 +20,7 @@
       ]
     },
     "description": "A class for writing binary data to buffers. All data is written with little endianess.",
-    "repoUrl": "https://github.com/sims4toolkit/encoding/blob/main/src/encoding.ts"
+    "sourceCode": "src/encoding.ts"
   },
   "sections": [
     {

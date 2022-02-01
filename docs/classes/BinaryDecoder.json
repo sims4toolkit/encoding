@@ -20,7 +20,7 @@
       ]
     },
     "description": "A class for reading binary data from buffers. All data is read with little endianess.",
-    "repoUrl": "https://github.com/sims4toolkit/encoding/blob/main/src/encoding.ts"
+    "sourceCode": "src/encoding.ts"
   },
   "sections": [
     {

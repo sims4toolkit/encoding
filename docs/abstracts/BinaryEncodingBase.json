@@ -6,7 +6,7 @@
       "name": "BinaryEncodingBase"
     },
     "description": "A base for classes that work with binary buffers.",
-    "repoUrl": "https://github.com/sims4toolkit/encoding/blob/main/src/encoding.ts"
+    "sourceCode": "src/encoding.ts"
   },
   "sections": [
     {
