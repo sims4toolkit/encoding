@@ -39,8 +39,7 @@
               "type": {
                 "name": "Buffer"
               },
-              "description": "Buffer to create decoder for.",
-              "optional": false
+              "description": "Buffer to create decoder for."
             }
           ]
         }
@@ -59,6 +58,14 @@
         },
         {
           "displayType": "function",
+          "name": "byte",
+          "returnType": {
+            "name": "number"
+          },
+          "description": "Reads a single byte. This is an alias for uint8()."
+        },
+        {
+          "displayType": "function",
           "name": "bytes",
           "returnType": {
             "name": "number[]"
@@ -70,8 +77,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Number of bytes to read.",
-              "optional": false
+              "description": "Number of bytes to read."
             }
           ]
         },
@@ -88,8 +94,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Number of bytes to read.",
-              "optional": false
+              "description": "Number of bytes to read."
             }
           ]
         },
@@ -106,8 +111,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Number of bytes to read.",
-              "optional": false
+              "description": "Number of bytes to read."
             }
           ]
         },
@@ -164,8 +168,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Number of bytes to read. This will be the length of the buffer.",
-              "optional": false
+              "description": "Number of bytes to read. This will be the length of the buffer."
             }
           ]
         },

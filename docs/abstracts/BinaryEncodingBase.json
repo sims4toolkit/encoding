@@ -10,6 +10,19 @@
   },
   "sections": [
     {
+      "title": "Properties",
+      "content": [
+        {
+          "displayType": "property",
+          "name": "buffer",
+          "description": "The buffer being written to or read from.",
+          "type": {
+            "name": "Buffer"
+          }
+        }
+      ]
+    },
+    {
       "title": "Methods",
       "content": [
         {

@@ -39,8 +39,25 @@
               "type": {
                 "name": "Buffer"
               },
-              "description": "Buffer to create encoder for.",
-              "optional": false
+              "description": "Buffer to create encoder for."
+            }
+          ]
+        },
+        {
+          "displayType": "function",
+          "prefix": "static",
+          "name": "alloc",
+          "returnType": {
+            "name": "BinaryEncoder"
+          },
+          "description": "Creates a new BinaryEncoder with a specific length.",
+          "arguments": [
+            {
+              "name": "size",
+              "type": {
+                "name": "number"
+              },
+              "description": "Size of buffer to encode to."
             }
           ]
         }
@@ -59,8 +76,35 @@
               "type": {
                 "name": "boolean"
               },
-              "description": "Boolean value to write.",
-              "optional": false
+              "description": "Boolean value to write."
+            }
+          ]
+        },
+        {
+          "displayType": "function",
+          "name": "byte",
+          "description": "Writes a single numerical value as a byte. This is an alias for uint8().",
+          "arguments": [
+            {
+              "name": "value",
+              "type": {
+                "name": "number"
+              },
+              "description": "Byte value to write."
+            }
+          ]
+        },
+        {
+          "displayType": "function",
+          "name": "bytes",
+          "description": "Writes an array of numerical values as bytes.",
+          "arguments": [
+            {
+              "name": "values",
+              "type": {
+                "name": "number[]"
+              },
+              "description": "Byte values to write."
             }
           ]
         },
@@ -74,8 +118,7 @@
               "type": {
                 "name": "string"
               },
-              "description": "String value to write.",
-              "optional": false
+              "description": "String value to write."
             }
           ]
         },
@@ -89,8 +132,7 @@
               "type": {
                 "name": "string"
               },
-              "description": "String value to write.",
-              "optional": false
+              "description": "String value to write."
             }
           ]
         },
@@ -104,8 +146,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Float value to write.",
-              "optional": false
+              "description": "Float value to write."
             }
           ]
         },
@@ -119,8 +160,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Int8 value to write.",
-              "optional": false
+              "description": "Int8 value to write."
             }
           ]
         },
@@ -134,8 +174,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Int16 value to write.",
-              "optional": false
+              "description": "Int16 value to write."
             }
           ]
         },
@@ -149,8 +188,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "Int32 value to write.",
-              "optional": false
+              "description": "Int32 value to write."
             }
           ]
         },
@@ -164,8 +202,7 @@
               "type": {
                 "name": "bigint"
               },
-              "description": "Int64 value to write.",
-              "optional": false
+              "description": "Int64 value to write."
             }
           ]
         },
@@ -179,8 +216,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "UInt8 value to write.",
-              "optional": false
+              "description": "UInt8 value to write."
             }
           ]
         },
@@ -194,8 +230,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "UInt16 value to write.",
-              "optional": false
+              "description": "UInt16 value to write."
             }
           ]
         },
@@ -209,8 +244,7 @@
               "type": {
                 "name": "number"
               },
-              "description": "UInt32 value to write.",
-              "optional": false
+              "description": "UInt32 value to write."
             }
           ]
         },
@@ -224,8 +258,7 @@
               "type": {
                 "name": "bigint"
               },
-              "description": "UInt64 value to write.",
-              "optional": false
+              "description": "UInt64 value to write."
             }
           ]
         }

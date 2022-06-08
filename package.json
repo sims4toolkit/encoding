@@ -1,6 +1,6 @@
 {
   "name": "@s4tk/encoding",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "encoding.js",
   "repository": {
     "type": "git",
