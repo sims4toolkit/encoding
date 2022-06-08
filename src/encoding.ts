@@ -7,13 +7,15 @@ type BufferWriteBigIntMethod = 'writeBigUInt64LE' | 'writeBigInt64LE';
  * A base class for classes that work with binary files.
  */
 abstract class BinaryEncodingBase {
-	protected readonly buffer: Buffer;
-  protected offset: number;
+	protected readonly _buffer: Buffer;
+	protected _offset: number;
 
-  constructor(buffer: Buffer) {
-    this.buffer = buffer;
-    this.offset = 0;
-  }
+	get buffer(): Buffer { return this._buffer; }
+
+	constructor(buffer: Buffer) {
+		this._buffer = buffer;
+		this._offset = 0;
+	}
 
 	/**
 	 * Advances the offset by the given number of bytes.
@@ -22,7 +24,7 @@ abstract class BinaryEncodingBase {
 	 * @returns {number} The new offset after skipping bytes
 	 */
 	skip(offset: number | bigint): number {
-		return this.offset += Number(offset);
+		return this._offset += Number(offset);
 	}
 
 	/**
@@ -32,7 +34,7 @@ abstract class BinaryEncodingBase {
 	 * @returns {void}
 	 */
 	seek(offset: number | bigint): void {
-		this.offset = Number(offset);
+		this._offset = Number(offset);
 	}
 
 	/**
@@ -41,7 +43,7 @@ abstract class BinaryEncodingBase {
 	 * @returns {number} The current offset
 	 */
 	tell(): number {
-		return this.offset;
+		return this._offset;
 	}
 
 	/**
@@ -62,21 +64,21 @@ abstract class BinaryEncodingBase {
 	 * @returns {boolean} Whether or not offset is at EOF
 	 */
 	isEOF(): boolean {
-		return this.offset === this.buffer.length;
+		return this._offset === this._buffer.length;
 	}
 
 	/**
 	 * Returns a new BinaryEncoder using this object's buffer.
 	 */
 	getEncoder(): BinaryEncoder {
-		return new BinaryEncoder(this.buffer);
+		return new BinaryEncoder(this._buffer);
 	}
 
 	/**
 	 * Returns a new BinaryDecoder using this object's buffer.
 	 */
 	getDecoder(): BinaryDecoder {
-		return new BinaryDecoder(this.buffer);
+		return new BinaryDecoder(this._buffer);
 	}
 }
 
@@ -105,9 +107,9 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * @returns {string} The characters read as a string
 	 */
 	private _chars(num: number, encoding: string): string {
-		const end = this.offset + num;
+		const end = this._offset + num;
 		//@ts-ignore: Importing Encoding is a pain, and is not necessary at all
-		const result = this.buffer.toString(encoding, this.offset, end);
+		const result = this._buffer.toString(encoding, this._offset, end);
 		this.seek(end);
 		return result;
 	}
@@ -142,11 +144,11 @@ export class BinaryDecoder extends BinaryEncodingBase {
 		let nextByte = this.uint8();
 		if (!nextByte) return '';
 		while (nextByte) nextByte = this.uint8();
-		return this.buffer.toString('utf8', start, this.offset - 1);
+		return this._buffer.toString('utf8', start, this._offset - 1);
 	}
 
 	//#endregion Text / Encoded Bytes
-	
+
 	//#region Raw Bytes / Buffers
 
 	/**
@@ -156,6 +158,15 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 */
 	boolean(): boolean {
 		return this.uint8() !== 0;
+	}
+
+	/**
+	 * Reads a single byte. This is an alias for `uint8()`.
+	 * 
+	 * @returns {number} A single byte value
+	 */
+	byte(): number {
+		return this.uint8();
 	}
 
 	/**
@@ -177,14 +188,14 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * @returns {Buffer} The sliced buffer
 	 */
 	slice(size: number): Buffer {
-		const end = this.offset + size;
-		const slice = this.buffer.slice(this.offset, end);
+		const end = this._offset + size;
+		const slice = this._buffer.slice(this._offset, end);
 		this.seek(end);
 		return slice;
 	}
 
 	//#endregion Raw Bytes / Buffers
-	
+
 	//#region Numbers
 
 	/**
@@ -196,7 +207,7 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * @returns {number} The read number
 	 */
 	private _number(methodName: BufferReadNumberMethod, numBytes: number): number {
-		const result = this.buffer[methodName](this.offset);
+		const result = this._buffer[methodName](this._offset);
 		this.skip(numBytes);
 		return result;
 	}
@@ -209,7 +220,7 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * @returns {number} The read bigint
 	 */
 	private _bigint(methodName: BufferReadBigIntMethod): bigint {
-		const result = this.buffer[methodName](this.offset);
+		const result = this._buffer[methodName](this._offset);
 		this.skip(8);
 		return result;
 	}
@@ -312,6 +323,15 @@ export class BinaryEncoder extends BinaryEncodingBase {
 		super(buffer);
 	}
 
+	/**
+	 * Creates a new buffer and returns and encoder for it.
+	 * 
+	 * @param size Size of buffer to encode
+	 */
+	static alloc(size: number): BinaryEncoder {
+		return new BinaryEncoder(Buffer.alloc(size));
+	}
+
 	//#region Text / Encoded Bytes
 
 	/**
@@ -324,7 +344,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	private _chars(value: string, encoding: string) {
 		// intentionally += because write() returns # bytes written
 		//@ts-ignore: Importing Encoding is a pain, and is not necessary at all
-		this.offset += this.buffer.write(value, this.offset, Buffer.byteLength(value, encoding), encoding);
+		this._offset += this._buffer.write(value, this._offset, Buffer.byteLength(value, encoding), encoding);
 	}
 
 	/**
@@ -352,10 +372,28 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes a UInt8 value of 1 if the given boolean is true, or 0 if it is false.
 	 * 
-	 * @param value Boolean value to write as a UInt8
+	 * @param {boolean} value Boolean value to write as a UInt8
 	 */
 	boolean(value: boolean) {
 		this.uint8(value ? 1 : 0);
+	}
+
+	/**
+	 * Writes a single numerical value as a byte. This is an alias for `uint8()`.
+	 * 
+	 * @param {number} value Single byte value to write
+	 */
+	byte(value: number) {
+		this.uint8(value);
+	}
+
+	/**
+	 * Writes an array of bytes to the buffer.
+	 * 
+	 * @param {number[] | Uint8Array} values Array of bytes to write
+	 */
+	bytes(values: number[] | Uint8Array) {
+		values.forEach((value: number) => this.byte(value));
 	}
 
 	//#endregion Raw Bytes / Buffers
@@ -371,7 +409,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	 */
 	private _number(value: number, methodName: BufferWriteNumberMethod) {
 		// intentionally = because all number methods return current offset + # bytes written
-		this.offset = this.buffer[methodName](value, this.offset);
+		this._offset = this._buffer[methodName](value, this._offset);
 	}
 
 	/**
@@ -384,7 +422,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	 */
 	private _bigint(value: bigint, methodName: BufferWriteBigIntMethod) {
 		// intentionally = because all number methods return current offset + # bytes written
-		this.offset = this.buffer[methodName](value, this.offset);
+		this._offset = this._buffer[methodName](value, this._offset);
 	}
 
 	/**
