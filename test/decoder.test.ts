@@ -1,3 +1,4 @@
+import { expect } from "chai";
 import { BinaryDecoder } from "../dst/encoding";
 
 describe("BinaryDecoder", () => {
@@ -52,15 +53,33 @@ describe("BinaryDecoder", () => {
   });
 
   describe("#boolean()", () => {
-    // TODO:
+    it("should read a true value", () => {
+      const decoder = new BinaryDecoder(Buffer.from([1]));
+      expect(decoder.boolean()).to.be.true;
+    });
+
+    it("should read a false value", () => {
+      const decoder = new BinaryDecoder(Buffer.from([0]));
+      expect(decoder.boolean()).to.be.false;
+    });
   });
 
   describe("#byte()", () => {
-    // TODO:
+    it("should read a single byte", () => {
+      const decoder = new BinaryDecoder(Buffer.from([2, 4, 8, 16]));
+      expect(decoder.byte()).to.equal(2);
+    });
   });
 
   describe("#bytes()", () => {
-    // TODO:
+    it("should read the bytes in order", () => {
+      const decoder = new BinaryDecoder(Buffer.from([2, 4, 8, 16]));
+      const [first, second, third, fourth] = decoder.bytes(4);
+      expect(first).to.equal(2);
+      expect(second).to.equal(4);
+      expect(third).to.equal(8);
+      expect(fourth).to.equal(16);
+    });
   });
 
   describe("#slice()", () => {
@@ -84,23 +103,59 @@ describe("BinaryDecoder", () => {
   });
 
   describe("#int8()", () => {
-    // TODO:
+    it("should read positive numbers", () => {
+      // TODO:
+    });
+
+    it("should read negative numbers", () => {
+      // TODO:
+    });
   });
 
   describe("#int16()", () => {
-    // TODO:
+    it("should read positive numbers", () => {
+      // TODO:
+    });
+
+    it("should read negative numbers", () => {
+      // TODO:
+    });
   });
 
   describe("#int32()", () => {
-    // TODO:
+    it("should read positive numbers", () => {
+      // TODO:
+    });
+
+    it("should read negative numbers", () => {
+      // TODO:
+    });
   });
 
   describe("#int64()", () => {
-    // TODO:
+    it("should read positive numbers", () => {
+      // TODO:
+    });
+
+    it("should read negative numbers", () => {
+      // TODO:
+    });
   });
 
   describe("#float()", () => {
-    // TODO:
+    it("should read positive numbers", () => {
+      const buffer = Buffer.alloc(4);
+      buffer.writeFloatLE(32.5);
+      const decoder = new BinaryDecoder(buffer);
+      expect(decoder.float()).to.be.approximately(32.5, 0.001);
+    });
+
+    it("should read negative numbers", () => {
+      const buffer = Buffer.alloc(4);
+      buffer.writeFloatLE(-32.5);
+      const decoder = new BinaryDecoder(buffer);
+      expect(decoder.float()).to.be.approximately(-32.5, 0.001);
+    });
   });
 
   //#endregion BinaryDecoder
