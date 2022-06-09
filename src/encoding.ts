@@ -1,7 +1,48 @@
-type BufferReadNumberMethod = 'readUInt8' | 'readUInt16LE' | 'readUInt32LE' | 'readInt8' | 'readInt16LE' | 'readInt32LE' | 'readFloatLE';
-type BufferReadBigIntMethod = 'readBigUInt64LE' | 'readBigInt64LE';
-type BufferWriteNumberMethod = 'writeUInt8' | 'writeUInt16LE' | 'writeUInt32LE' | 'writeInt8' | 'writeInt16LE' | 'writeInt32LE' | 'writeFloatLE';
-type BufferWriteBigIntMethod = 'writeBigUInt64LE' | 'writeBigInt64LE';
+//#region Types
+
+type Endianness = "BE" | "LE";
+
+type BufferReadNumberMethod =
+	"readUInt8" |
+	"readUInt16LE" |
+	"readUInt16BE" |
+	"readUInt32LE" |
+	"readUInt32BE" |
+	"readInt8" |
+	"readInt16LE" |
+	"readInt16BE" |
+	"readInt32LE" |
+	"readInt32BE" |
+	"readFloatLE" |
+	"readFloatBE";
+
+type BufferReadBigIntMethod =
+	"readBigUInt64LE" |
+	"readBigUInt64BE" |
+	"readBigInt64LE" |
+	"readBigInt64BE";
+
+type BufferWriteNumberMethod =
+	"writeUInt8" |
+	"writeUInt16LE" |
+	"writeUInt16BE" |
+	"writeUInt32LE" |
+	"writeUInt32BE" |
+	"writeInt8" |
+	"writeInt16LE" |
+	"writeInt16BE" |
+	"writeInt32LE" |
+	"writeInt32BE" |
+	"writeFloatLE" |
+	"writeFloatBE";
+
+type BufferWriteBigIntMethod =
+	"writeBigUInt64LE" |
+	"writeBigUInt64BE" |
+	"writeBigInt64LE" |
+	"writeBigInt64BE";
+
+//#endregion Types
 
 /**
  * A base class for classes that work with binary files.
@@ -12,35 +53,62 @@ abstract class BinaryEncodingBase {
 
 	get buffer(): Buffer { return this._buffer; }
 
-	constructor(buffer: Buffer) {
+	constructor(
+		buffer: Buffer,
+		initialOffset: number = 0,
+		protected _endianness: Endianness = "LE"
+	) {
 		this._buffer = buffer;
-		this._offset = 0;
+		this._offset = initialOffset;
 	}
 
 	/**
 	 * Advances the offset by the given number of bytes.
 	 * 
-	 * @param {number | bigint} offset The number of bytes to skip
-	 * @returns {number} The new offset after skipping bytes
+	 * @param offset The number of bytes to skip
+	 * @returns The new offset after skipping bytes
 	 */
 	skip(offset: number | bigint): number {
 		return this._offset += Number(offset);
 	}
 
 	/**
+	 * Advances the offset by the given number of bytes, then calls a function
+	 * and returns its result.
+	 * 
+	 * @param offset The number of bytes to skip 
+	 * @param fn Function to call after skipping
+	 */
+	skipThen<T>(offset: number | bigint, fn: () => T): T {
+		this.skip(offset);
+		return fn();
+	}
+
+	/**
 	 * Moves the offset to a specific byte.
 	 * 
-	 * @param {number | bigint} offset The value to set the offset to
-	 * @returns {void}
+	 * @param offset The value to set the offset to
 	 */
 	seek(offset: number | bigint): void {
 		this._offset = Number(offset);
 	}
 
 	/**
+	 * Moves the offset to a specific byte, then calls a function and returns its
+	 * result.
+	 * 
+	 * @param offset  The value to set the offset to
+	 * @param fn Function to call after seeking
+	 */
+	seekThen<T>(offset: number | bigint, fn: () => T): T {
+		this.seek(offset);
+		return fn();
+	}
+
+	/**
 	 * Gets the current offset.
 	 * 
-	 * @returns {number} The current offset
+	 * @returns The current offset
 	 */
 	tell(): number {
 		return this._offset;
@@ -61,7 +129,7 @@ abstract class BinaryEncodingBase {
 	/**
 	 * Returns whether or not the offset is at the last byte of the file.
 	 * 
-	 * @returns {boolean} Whether or not offset is at EOF
+	 * @returns Whether or not offset is at EOF
 	 */
 	isEOF(): boolean {
 		return this._offset === this._buffer.length;
@@ -70,15 +138,17 @@ abstract class BinaryEncodingBase {
 	/**
 	 * Returns a new BinaryEncoder using this object's buffer.
 	 */
-	getEncoder(): BinaryEncoder {
-		return new BinaryEncoder(this._buffer);
+	getEncoder(initialOffset = 0): BinaryEncoder {
+		return new BinaryEncoder(this._buffer, initialOffset);
 	}
 
 	/**
 	 * Returns a new BinaryDecoder using this object's buffer.
+	 * 
+	 * @param initialOffset
 	 */
-	getDecoder(): BinaryDecoder {
-		return new BinaryDecoder(this._buffer);
+	getDecoder(initialOffset = 0): BinaryDecoder {
+		return new BinaryDecoder(this._buffer, initialOffset);
 	}
 }
 
@@ -91,9 +161,15 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * Creates a new BinaryDecoder that can read the given buffer.
 	 * 
 	 * @param buffer Buffer to decode
+	 * @param initialOffset Initial offset to use. 0 by default.
+	 * @param endianness Endianness to use. Little endian by default.
 	 */
-	constructor(buffer: Buffer) {
-		super(buffer);
+	constructor(
+		buffer: Buffer,
+		initialOffset: number = 0,
+		endianness: Endianness = "LE"
+	) {
+		super(buffer, initialOffset, endianness);
 	}
 
 	//#region Text / Encoded Bytes
@@ -102,9 +178,9 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * Reads the given number of bytes as characters in the given encoding.
 	 * 
 	 * @private
-	 * @param {number} num Number of bytes to read
-	 * @param {string} encoding Encoding to read bytes as
-	 * @returns {string} The characters read as a string
+	 * @param num Number of bytes to read
+	 * @param encoding Encoding to read bytes as
+	 * @returns The characters read as a string
 	 */
 	private _chars(num: number, encoding: string): string {
 		const end = this._offset + num;
@@ -117,34 +193,34 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Reads the given number of bytes as a string of UTF-8 characters.
 	 * 
-	 * @param {number} num Number of bytes to read
-	 * @returns {string} The characters read
+	 * @param num Number of bytes to read
+	 * @returns The characters read
 	 */
 	charsUtf8(num: number): string {
-		return this._chars(num, 'utf-8');
+		return this._chars(num, "utf-8");
 	}
 
 	/**
 	 * Reads the given number of bytes as a string of Base64 characters.
 	 * 
-	 * @param {number} num Number of bytes to read
-	 * @returns {string} The characters read
+	 * @param num Number of bytes to read
+	 * @returns The characters read
 	 */
 	charsBase64(num: number): string {
-		return this._chars(num, 'base64');
+		return this._chars(num, "base64");
 	}
 
 	/**
 	 * Reads bytes until a null byte is found, parses them as a UTF-8 string.
 	 * 
-	 * @returns {string} The string read
+	 * @returns The string read
 	 */
 	string(): string {
 		const start = this.tell();
-		let nextByte = this.uint8();
-		if (!nextByte) return '';
-		while (nextByte) nextByte = this.uint8();
-		return this._buffer.toString('utf8', start, this._offset - 1);
+		let nextByte = this.byte();
+		if (!nextByte) return "";
+		while (nextByte) nextByte = this.byte();
+		return this._buffer.toString("utf8", start, this._offset - 1);
 	}
 
 	//#endregion Text / Encoded Bytes
@@ -154,7 +230,7 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Reads the next byte as a boolean (first, reads it as a UInt8, then checks if it's != 0).
 	 * 
-	 * @returns {boolean} The boolean value of the next byte
+	 * @returns The boolean value of the next byte
 	 */
 	boolean(): boolean {
 		return this.uint8() !== 0;
@@ -163,7 +239,7 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Reads a single byte. This is an alias for `uint8()`.
 	 * 
-	 * @returns {number} A single byte value
+	 * @returns A single byte value
 	 */
 	byte(): number {
 		return this.uint8();
@@ -172,8 +248,8 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Reads the given number of raw bytes.
 	 * 
-	 * @param {number} num The number of bytes to read
-	 * @returns {number[]} An array of bytes
+	 * @param num The number of bytes to read
+	 * @returns An array of bytes
 	 */
 	bytes(num: number): number[] {
 		const bytes = [];
@@ -184,8 +260,8 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Slices a sub-buffer of the given size starting at the current offset.
 	 * 
-	 * @param {number} size Size of the sub-buffer to slice
-	 * @returns {Buffer} The sliced buffer
+	 * @param size Size of the sub-buffer to slice
+	 * @returns The sliced buffer
 	 */
 	slice(size: number): Buffer {
 		const end = this._offset + size;
@@ -202,9 +278,9 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * Reads a number using the given Buffer method.
 	 * 
 	 * @private
-	 * @param {BufferReadNumberMethod} methodName The method to call on the buffer
-	 * @param {number} numBytes The number of bytes to advance the offset by
-	 * @returns {number} The read number
+	 * @param methodName The method to call on the buffer
+	 * @param numBytes The number of bytes to advance the offset by
+	 * @returns The read number
 	 */
 	private _number(methodName: BufferReadNumberMethod, numBytes: number): number {
 		const result = this._buffer[methodName](this._offset);
@@ -216,8 +292,8 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	 * Reads a bigint using the given Buffer method.
 	 * 
 	 * @private
-	 * @param {BufferReadBigIntMethod} methodName The method to call on the buffer
-	 * @returns {number} The read bigint
+	 * @param methodName The method to call on the buffer
+	 * @returns The read bigint
 	 */
 	private _bigint(methodName: BufferReadBigIntMethod): bigint {
 		const result = this._buffer[methodName](this._offset);
@@ -228,82 +304,115 @@ export class BinaryDecoder extends BinaryEncodingBase {
 	/**
 	 * Reads an 8-bit unsigned integer.
 	 * 
-	 * @returns {number} The read uint8
+	 * @returns The read uint8
 	 */
 	uint8(): number {
-		return this._number('readUInt8', 1);
+		return this._number("readUInt8", 1);
 	}
 
 	/**
 	 * Reads a 16-bit unsigned integer, using little endian.
 	 * 
-	 * @returns {number} The read uint16
+	 * @returns The read uint16
 	 */
 	uint16(): number {
-		return this._number('readUInt16LE', 2);
+		return this._number(
+			this._endianness === "LE"
+				? "readUInt16LE"
+				: "readUInt16BE",
+			2
+		);
 	}
 
 	/**
 	 * Reads a 32-bit unsigned integer, using little endian.
 	 * 
-	 * @returns {number} The read uint32
+	 * @returns The read uint32
 	 */
 	uint32(): number {
-		return this._number('readUInt32LE', 4);
+		return this._number(
+			this._endianness === "LE"
+				? "readUInt32LE"
+				: "readUInt32BE",
+			4
+		);
 	}
 
 	/**
 	 * Reads a 64-bit unsigned integer, using little endian.
 	 * 
-	 * @returns {bigint} The read uint64
+	 * @returns The read uint64
 	 */
 	uint64(): bigint {
-		return this._bigint('readBigUInt64LE');
+		return this._bigint(
+			this._endianness === "LE"
+				? "readBigUInt64LE"
+				: "readBigUInt64BE"
+		);
 	}
 
 	/**
 	 * Reads an 8-bit signed integer.
 	 * 
-	 * @returns {number} The read int8
+	 * @returns The read int8
 	 */
 	int8(): number {
-		return this._number('readInt8', 1);
+		return this._number("readInt8", 1);
 	}
 
 	/**
 	 * Reads a 16-bit signed integer, using little endian.
 	 * 
-	 * @returns {number} The read int16
+	 * @returns The read int16
 	 */
 	int16(): number {
-		return this._number('readInt16LE', 2);
+		return this._number(
+			this._endianness === "LE"
+				? "readInt16LE"
+				: "readInt16BE",
+			2
+		);
 	}
 
 	/**
 	 * Reads a 32-bit signed integer, using little endian.
 	 * 
-	 * @returns {number} The read int32
+	 * @returns The read int32
 	 */
 	int32(): number {
-		return this._number('readInt32LE', 4);
+		return this._number(
+			this._endianness === "LE"
+				? "readInt32LE"
+				: "readInt32BE",
+			4
+		);
 	}
 
 	/**
 	 * Reads a 64-bit signed integer, using little endian.
 	 * 
-	 * @returns {bigint} The read int64
+	 * @returns The read int64
 	 */
 	int64(): bigint {
-		return this._bigint('readBigInt64LE');
+		return this._bigint(
+			this._endianness === "LE"
+				? "readBigInt64LE"
+				: "readBigInt64BE"
+		);
 	}
 
 	/**
 	 * Reads a float, using little endian.
 	 * 
-	 * @returns {number} The read float
+	 * @returns The read float
 	 */
 	float(): number {
-		return this._number('readFloatLE', 4);
+		return this._number(
+			this._endianness === "LE"
+				? "readFloatLE"
+				: "readFloatBE",
+			4
+		);
 	}
 
 	//#endregion Numbers
@@ -318,9 +427,15 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	 * Creates a new BinaryEncoder that can write to the given buffer.
 	 * 
 	 * @param buffer Buffer to encode
+	 * @param initialOffset Initial offset to use. 0 by default.
+	 * @param endianness Endianness to use. Little endian by default.
 	 */
-	constructor(buffer: Buffer) {
-		super(buffer);
+	constructor(
+		buffer: Buffer,
+		initialOffset: number = 0,
+		endianness: Endianness = "LE"
+	) {
+		super(buffer, initialOffset, endianness);
 	}
 
 	/**
@@ -338,8 +453,8 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	 * Writes a string to the buffer using the given encoding.
 	 * 
 	 * @private
-	 * @param {string} value The characters to write
-	 * @param {string} encoding The encoding to write the string as
+	 * @param value The characters to write
+	 * @param encoding The encoding to write the string as
 	 */
 	private _chars(value: string, encoding: string) {
 		// intentionally += because write() returns # bytes written
@@ -350,19 +465,19 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes a string to the buffer using UTF-8 encoding.
 	 * 
-	 * @param {string} value The characters to write
+	 * @param value The characters to write
 	 */
 	charsUtf8(value: string) {
-		this._chars(value, 'utf-8');
+		this._chars(value, "utf-8");
 	}
 
 	/**
 	 * Writes a string to the buffer using Base64 encoding.
 	 * 
-	 * @param {string} value The characters to write
+	 * @param value The characters to write
 	 */
 	charsBase64(value: string) {
-		this._chars(value, 'base64');
+		this._chars(value, "base64");
 	}
 
 	//#endregion Text / Encoded Bytes
@@ -372,7 +487,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes a UInt8 value of 1 if the given boolean is true, or 0 if it is false.
 	 * 
-	 * @param {boolean} value Boolean value to write as a UInt8
+	 * @param value Boolean value to write as a UInt8
 	 */
 	boolean(value: boolean) {
 		this.uint8(value ? 1 : 0);
@@ -381,7 +496,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes a single numerical value as a byte. This is an alias for `uint8()`.
 	 * 
-	 * @param {number} value Single byte value to write
+	 * @param value Single byte value to write
 	 */
 	byte(value: number) {
 		this.uint8(value);
@@ -390,7 +505,7 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes an array of bytes to the buffer.
 	 * 
-	 * @param {number[] | Uint8Array} values Array of bytes to write
+	 * @param values Array of bytes to write
 	 */
 	bytes(values: number[] | Uint8Array) {
 		values.forEach((value: number) => this.byte(value));
@@ -404,8 +519,8 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	 * Writes a number to the buffer using the given method.
 	 * 
 	 * @private
-	 * @param {number} value The number to write
-	 * @param {BufferWriteNumberMethod} methodName The method to write the number with
+	 * @param value The number to write
+	 * @param methodName The method to write the number with
 	 */
 	private _number(value: number, methodName: BufferWriteNumberMethod) {
 		// intentionally = because all number methods return current offset + # bytes written
@@ -413,12 +528,12 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	}
 
 	/**
-	 * Writes a bigint to the buffer using the given method. This is separate from _number
-	 * because this module was originally written in TypeScript.
+	 * Writes a bigint to the buffer using the given method. This is separate from
+	 * _number because this module was originally written in TypeScript.
 	 * 
 	 * @private
-	 * @param {bigint} value The bigint to write
-	 * @param {BufferWriteBigIntMethod} methodName The method to write the bigint with
+	 * @param value The bigint to write
+	 * @param methodName The method to write the bigint with
 	 */
 	private _bigint(value: bigint, methodName: BufferWriteBigIntMethod) {
 		// intentionally = because all number methods return current offset + # bytes written
@@ -428,82 +543,117 @@ export class BinaryEncoder extends BinaryEncodingBase {
 	/**
 	 * Writes an 8-bit unsigned integer to the buffer.
 	 * 
-	 * @param {number} value The uint8 to write
+	 * @param value The uint8 to write
 	 */
 	uint8(value: number) {
-		this._number(value, 'writeUInt8');
+		this._number(value, "writeUInt8");
 	}
 
 	/**
 	 * Writes a 16-bit unsigned integer to the buffer, using little endian.
 	 * 
-	 * @param {number} value The uint16 to write
+	 * @param value The uint16 to write
 	 */
 	uint16(value: number) {
-		this._number(value, 'writeUInt16LE');
+		this._number(
+			value,
+			this._endianness === "LE"
+				? "writeUInt16LE"
+				: "writeUInt16BE"
+		);
 	}
 
 	/**
 	 * Writes a 32-bit unsigned integer to the buffer, using little endian.
 	 * 
-	 * @param {number} value The uint32 to write
+	 * @param value The uint32 to write
 	 */
 	uint32(value: number) {
-		this._number(value, 'writeUInt32LE');
+		this._number(
+			value,
+			this._endianness === "LE"
+				? "writeUInt32LE"
+				: "writeUInt32BE"
+		);
 	}
 
 	/**
 	 * Writes a 64-bit unsigned integer to the buffer, using little endian.
 	 * 
-	 * @param {number | bigint} value The uint64 to write
+	 * @param value The uint64 to write
 	 */
 	uint64(value: number | bigint) {
-		this._bigint(BigInt(value), 'writeBigUInt64LE');
+		this._bigint(
+			BigInt(value),
+			this._endianness === "LE"
+				? "writeBigUInt64LE"
+				: "writeBigUInt64BE"
+		);
 	}
 
 	/**
 	 * Writes an 8-bit signed integer to the buffer.
 	 * 
-	 * @param {number} value The int8 to write
+	 * @param value The int8 to write
 	 */
 	int8(value: number) {
-		this._number(value, 'writeInt8');
+		this._number(value, "writeInt8");
 	}
 
 	/**
 	 * Writes a 16-bit signed integer to the buffer, using little endian.
 	 * 
-	 * @param {number} value The int16 to write
+	 * @param value The int16 to write
 	 */
 	int16(value: number) {
-		this._number(value, 'writeInt16LE');
+		this._number(
+			value,
+			this._endianness === "LE"
+				? "writeInt16LE"
+				: "writeInt16BE"
+		);
 	}
 
 	/**
 	 * Writes a 32-bit signed integer to the buffer, using little endian.
 	 * 
-	 * @param {number} value The int32 to write
+	 * @param value The int32 to write
 	 */
 	int32(value: number) {
-		this._number(value, 'writeInt32LE');
+		this._number(
+			value,
+			this._endianness === "LE"
+				? "writeInt32LE"
+				: "writeInt32BE"
+		);
 	}
 
 	/**
 	 * Writes a 64-bit signed integer to the buffer, using little endian.
 	 * 
-	 * @param {number | bigint} value The int64 to write
+	 * @param value The int64 to write
 	 */
 	int64(value: number | bigint) {
-		this._bigint(BigInt(value), 'writeBigInt64LE');
+		this._bigint(
+			BigInt(value),
+			this._endianness === "LE"
+				? "writeBigInt64LE"
+				: "writeBigInt64BE"
+		);
 	}
 
 	/**
 	 * Writes a float to the buffer, using little endian.
 	 * 
-	 * @param {number} value The float to write
+	 * @param value The float to write
 	 */
 	float(value: number) {
-		this._number(value, 'writeFloatLE');
+		this._number(
+			value,
+			this._endianness === "LE"
+				? "writeFloatLE"
+				: "writeFloatBE"
+		);
 	}
 
 	//#endregion Numbers
